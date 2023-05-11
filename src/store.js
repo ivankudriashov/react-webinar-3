@@ -42,9 +42,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    console.log(this.state)
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      counterIds: this.state.counterIds + 1,
+      list: [...this.state.list, {code: this.state.counterIds + 1, title: 'Новая запись'}]
     })
   };
 
@@ -69,6 +71,10 @@ class Store {
       list: this.state.list.map(item => {
         if (item.code === code) {
           item.selected = !item.selected;
+          // Инкрементация счетчика выделений.
+          !item.counter ? item.counter = 1 : item.counter++;
+        } else {
+          item.selected = false;
         }
         return item;
       })

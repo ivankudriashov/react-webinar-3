@@ -1,6 +1,5 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import {createElement} from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
@@ -13,7 +12,8 @@ const store = new Store({
     {code: 5, title: 'Запись'},
     {code: 6, title: 'Шестая запись'},
     {code: 7, title: 'Седьмая запись'},
-  ]
+  ],
+  counterIds: 7
 });
 
 const root = createRoot(document.getElementById('root'));

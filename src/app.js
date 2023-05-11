@@ -1,5 +1,5 @@
 import React from 'react';
-import {createElement} from './utils.js';
+import {declOfNum} from './utils.js';
 import './styles.css';
 
 /**
@@ -11,6 +11,8 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  const worldCases = ["раз", "раза", "раз"];
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -21,12 +23,12 @@ function App({store}) {
       </div>
       <div className='App-center'>
         <div className='List'>{
-          list.map(item =>
+          list.map((item, index) =>
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-code'>{index + 1}</div>
+                <div className='Item-title'>{item.title}{item.counter ? ` | Выделяли ${item.counter} ${declOfNum(item.counter, worldCases)}` : null}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
