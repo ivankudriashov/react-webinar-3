@@ -72,7 +72,9 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
           // Инкрементация счетчика выделений.
-          !item.counter ? item.counter = 1 : item.counter++;
+          if(item.selected) {
+            !item.counter ? item.counter = 1 : item.counter++;
+          }
         } else {
           item.selected = false;
         }
