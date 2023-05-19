@@ -3,3 +3,19 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls__info {
+  font-size: 18px;
+  line-height: 21px;
+  margin-right: 20px;
+}
+
+.Controls__info span {
+  font-weight: 700;
+  margin-left: 15px;
+}
+
+.Controls___button {
+  font-weight: 700;
+  margin-left: 15px;
+}
