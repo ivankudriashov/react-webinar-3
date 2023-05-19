@@ -35,7 +35,7 @@ function App({store}) {
 
     onDeleteItemFromCart: useCallback((code) => {
       store.deleteItemFromCart(code);
-    }, []),
+    }, [store]),
 
     itemsListRender: useCallback((item) => {
       return <Item item={item} actionFunction={callbacks.onAddItemToCart} button={'Добавить'}/>
