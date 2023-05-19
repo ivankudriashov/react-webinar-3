@@ -22,4 +22,8 @@ List.propTypes = {
   itemRender: PropTypes.func
 };
 
+List.defaultProps = {
+  itemRender: () => {},
+}
+
 export default React.memo(List);
