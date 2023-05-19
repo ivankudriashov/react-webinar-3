@@ -35,18 +35,20 @@ function App({store}) {
 
     onDeleteItemFromCart: useCallback((code) => {
       store.deleteItemFromCart(code);
-    }, [store]),
+    }, []),
+
+    itemsListRender: useCallback((item) => {
+      return <Item item={item} actionFunction={callbacks.onAddItemToCart} button={'Добавить'}/>
+    }, []),
   }
 
   return (
     <PageLayout>
       <Head title='Магазин'/>
       <Controls count={itemsInCartCount} price={itemsPrice} openCart={callbacks.onOpenCart}/>
-      <List list={list}>
-         {(item) => <Item item={item} actionFunction={callbacks.onAddItemToCart} button={'Добавить'}/>}
-      </List>
-      {isCartOpen && 
-        <Cart 
+      <List list={list} itemRender={callbacks.itemsListRender} />
+      {isCartOpen &&
+        <Cart
           actionFunction={callbacks.onDeleteItemFromCart}
           total={itemsPrice} list={cartList}
           onClose={callbacks.onCloseCart} />

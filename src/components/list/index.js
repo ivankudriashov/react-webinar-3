@@ -8,7 +8,7 @@ function List(props){
     <div className='List'>{
       props.list.map(item =>
         <div key={item.code} className='List-item'>
-          {props.children(item)}
+          {props.itemRender(item)}
         </div>
       )}
     </div>
@@ -19,6 +19,7 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
+  itemRender: PropTypes.func
 };
 
 export default React.memo(List);

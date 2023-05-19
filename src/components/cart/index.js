@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import './style.css';
 import List from "../list";
@@ -18,15 +18,19 @@ function Cart({onClose, list, total, actionFunction}){
     return () => window.removeEventListener('keydown', close)
   },[onClose]);
 
+  const callbacks = {
+    itemsListRender: useCallback((item) => {
+      return <Item actionFunction={actionFunction} item={item} button={'Удалить'}/>
+    }, []),
+  }
+
   return (
     <div className="Cart">
         <Modal onClose={onClose}>
             <Head title='Корзина' />
             {list.length ?
               <>
-                <List list={list}>
-                  {(item) => <Item actionFunction={actionFunction} item={item} button={'Удалить'}/>}
-                </List>
+                <List list={list} itemRender={callbacks.itemsListRender} />
                 <div className="Cart__total">Итого <span>{total} ₽</span> </div>
               </>
               :
