@@ -4,7 +4,7 @@ import Item from "./components/item";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
-
+import Modal from './components/modal';
 import Cart from './components/cart';
 
 /**
@@ -43,17 +43,21 @@ function App({store}) {
   }
 
   return (
-    <PageLayout>
-      <Head title='Магазин'/>
-      <Controls count={itemsInCartCount} price={itemsPrice} openCart={callbacks.onOpenCart}/>
-      <List list={list} itemRender={callbacks.itemsListRender} />
+    <>
+      <PageLayout>
+        <Head title='Магазин'/>
+        <Controls count={itemsInCartCount} price={itemsPrice} openCart={callbacks.onOpenCart}/>
+        <List list={list} itemRender={callbacks.itemsListRender} />
+      </PageLayout>
       {isCartOpen &&
-        <Cart
-          actionFunction={callbacks.onDeleteItemFromCart}
-          total={itemsPrice} list={cartList}
-          onClose={callbacks.onCloseCart} />
+        <Modal
+          onClose={callbacks.onCloseCart}>
+          <Cart
+            actionFunction={callbacks.onDeleteItemFromCart}
+            total={itemsPrice} list={cartList}/>
+        </Modal>
       }
-    </PageLayout>
+    </>
   );
 }
 

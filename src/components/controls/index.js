@@ -4,7 +4,7 @@ import './style.css';
 import {plural} from '../../utils'
 
 function Controls({openCart, count, price}){
-  const content = count ? `${count} ${plural(count, {one: 'товар', few: 'товара', many: 'товаров'})} / ${price} ₽` : 'пусто'
+  const content = count ? `${count} ${plural(count, {one: 'товар', few: 'товара', many: 'товаров'})} / ${price.toLocaleString('ru-RU')} ₽` : 'пусто'
 
   return (
     <div className='Controls'>
