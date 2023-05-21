@@ -95,9 +95,11 @@ class Store {
     const includedItem = this.state.cart.items.filter(i => i.code === code);
 
     let filteredItems;
+    let uniqueItemsCount;
     
     if(includedItem.length === 0) {
-      filteredItems = [...this.state.cart.items, {...item, count: 1}]
+      filteredItems = [...this.state.cart.items, {...item, count: 1}];
+      uniqueItemsCount = this.state.cart.uniqueItemsCount + 1;
     } else {
       filteredItems = this.state.cart.items.map(i => {
         if (i.code === code) {
@@ -105,7 +107,8 @@ class Store {
         }
 
         return i;
-      })
+      });
+      uniqueItemsCount = this.state.cart.uniqueItemsCount;
     }
 
     this.setState({
@@ -113,7 +116,8 @@ class Store {
       cart: {
         ...this.state.cart,
         total: this.state.cart.total + item.price,
-        items: filteredItems
+        items: filteredItems,
+        uniqueItemsCount: uniqueItemsCount
       }
     })
   }
@@ -132,7 +136,8 @@ class Store {
           ...this.state.cart,
           total: this.state.cart.total - item.price * item.count,
           // Новый список, в котором не будет удаляемой записи
-          items: this.state.cart.items.filter(item => item.code !== code)
+          items: this.state.cart.items.filter(item => item.code !== code),
+          uniqueItemsCount: this.state.cart.uniqueItemsCount - 1,
         }
       })
     }

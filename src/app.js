@@ -17,7 +17,7 @@ function App({store}) {
   const list = store.getState().list;
   const cartList = store.getState().cart.items;
   const itemsPrice = store.getState().cart.total;
-  const itemsInCartCount = store.getState().cart.items.length;
+  const itemsInCartCount = store.getState().cart.uniqueItemsCount;
   const isCartOpen = store.getState().cart.isOpen;
 
   const callbacks = {
