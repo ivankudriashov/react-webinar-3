@@ -41,7 +41,6 @@ function Main() {
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
     </PageLayout>
-
   );
 }
 

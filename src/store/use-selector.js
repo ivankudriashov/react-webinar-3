@@ -1,5 +1,5 @@
 import useStore from "./use-store";
-import {useEffect, useLayoutEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import shallowequal from 'shallowequal';
 
 /**
@@ -21,7 +21,7 @@ export default function useSelector(selector) {
   }, []); // Нет зависимостей - исполнится один раз
 
   // Отписка от store при демонтировании компонента
-  useLayoutEffect(() => unsubscribe, [unsubscribe]);
+  useEffect(() => unsubscribe, [unsubscribe]);
 
   return state;
 }
