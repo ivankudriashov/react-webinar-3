@@ -5,22 +5,28 @@ class Catalog extends StoreModule {
 
   constructor(store, name) {
     super(store, name);
-    this.generateCode = codeGenerator(0)
+    this.generateCode = codeGenerator(0);
+    this._baseLimit = 10;
   }
 
   initState() {
     return {
       list: [],
-      item: {}
+      item: {},
+      total: 0,
+      skip: 0,
+      targetPage: 1,
+      numberOfItems: 10,
     }
   }
 
-  async load() {
-    const response = await fetch('/api/v1/articles');
+  async load(skip = 0) {
+    const response = await fetch(`/api/v1/articles?limit=${this._baseLimit}&skip=${skip}&fields=items(_id, title, price),count`);
     const json = await response.json();
     this.setState({
        ...this.getState(),
-       list: json.result.items
+       list: json.result.items,
+       total: json.result.count,
     }, 'Загружены товары из АПИ');
   }
 
@@ -31,6 +37,14 @@ class Catalog extends StoreModule {
        ...this.getState(),
        item: json.result
     }, 'Загружен товар по id из АПИ');
+  }
+
+  skipChange(skip) {
+    this.setState({
+      ...this.getState(),
+      skip: skip * 10,
+      targetPage: skip + 1
+   })
   }
 }
 

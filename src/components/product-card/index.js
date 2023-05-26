@@ -9,8 +9,6 @@ function ProductCard(props){
 
   const cn = bem('ProductCard');
 
-  console.log(props)
-
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
   }
