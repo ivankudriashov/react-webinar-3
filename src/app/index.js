@@ -11,7 +11,7 @@ import {
   RouterProvider,
   Routes,
 } from "react-router-dom";
-import ProductsDetails from './productsDetails';
+import ProductsDetails from './products-details';
 
 function App() {
 

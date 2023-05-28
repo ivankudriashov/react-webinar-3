@@ -47,7 +47,7 @@ function ProductsDetails() {
       setLoadind(true);
     }
     request();
-  }, []);
+  }, [params.id]);
 
   const select = useSelector(state => ({
     item: state.catalog.item,
