@@ -16,7 +16,7 @@ function Item(props){
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={`/products/${props.item._id}`} className={cn('title')}>
+      <Link to={props.to || `/products/${props.item._id}`} className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
@@ -31,8 +31,9 @@ Item.propTypes = {
   item: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
-    price: PropTypes.number
+    price: PropTypes.number,
   }).isRequired,
+  to: PropTypes.string,
   onAdd: PropTypes.func,
 };
 
