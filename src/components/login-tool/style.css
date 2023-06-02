@@ -1,0 +1,29 @@
+.LoginTool {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.LoginTool-link {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  margin-right: 20px;
+}
+
+.LoginTool-button {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  height: 21px;
+  text-decoration: none;
+  color: #000000;
+  background: #EFEFEF;
+  border: 1px solid #767676;
+  border-radius: 2px;
+}

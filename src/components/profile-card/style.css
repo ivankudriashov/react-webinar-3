@@ -1,0 +1,26 @@
+.ProfileCard {
+  padding: 20px 20px;
+}
+
+.ProfileCard-prop {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.ProfileCard-prop_size_big{
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 28px;
+}
+
+.ProfileCard-label{
+  padding-right: 10px;
+}
+
+.ProfileCard-value{
+  font-weight: bold;
+}

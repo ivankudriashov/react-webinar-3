@@ -16,7 +16,8 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        query: '',
+        categories: null
       },
       count: 0,
       waiting: false
@@ -93,6 +94,50 @@ class CatalogState extends StoreModule {
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }
+
+    /**
+   * Загрузка списка категорий
+   * @returns {Promise<void>}
+   */
+    async getCategories() {
+      // const params = {...this.getState().params, ...newParams};
+
+      // // Установка новых параметров и признака загрузки
+      // this.setState({
+      //   ...this.getState(),
+      //   params,
+      //   waiting: true
+      // }, 'Установлены параметры каталога');
+
+      // // Сохранить параметры в адрес страницы
+      // let urlSearch = new URLSearchParams(params).toString();
+      // const url = window.location.pathname + '?' + urlSearch + window.location.hash;
+      // if (replaceHistory) {
+      //   window.history.replaceState({}, '', url);
+      // } else {
+      //   window.history.pushState({}, '', url);
+      // }
+
+      // const apiParams = {
+      //   limit: params.limit,
+      //   skip: (params.page - 1) * params.limit,
+      //   fields: 'items(*),count',
+      //   sort: params.sort,
+      //   'search[query]': params.query
+      // };
+
+      const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
+      const json = await response.json();
+// console.log(json)
+      this.setState({
+        ...this.getState(),
+        params: {
+          ...this.getState().params,
+          categories: json.result.items
+        }
+      }, 'Загружен список категорий из АПИ');
+    }
+
 }
 
 export default CatalogState;

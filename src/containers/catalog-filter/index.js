@@ -5,6 +5,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
+import useInit from "../../hooks/use-init";
 
 function CatalogFilter() {
 
@@ -13,6 +14,7 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
+    categories: state.catalog.params.categories,
   }));
 
   const callbacks = {
@@ -35,11 +37,15 @@ function CatalogFilter() {
 
   const {t} = useTranslate();
 
+  // useInit(() => {
+  //   console.log(select.categories)
+  // }, [select.categories])
+  console.log(select.categories)
   return (
     <SideLayout padding='medium'>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={600}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )
