@@ -14,12 +14,15 @@ function CatalogFilter() {
   const select = useSelector(state => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categories: state.catalog.params.categories,
+    categories: state.catalog.categories,
+    category: state.catalog.params.category,
   }));
 
   const callbacks = {
     // Сортировка
     onSort: useCallback(sort => store.actions.catalog.setParams({sort}), [store]),
+    // Сортировка по категориям
+    onSortByCategiry: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store]),
     // Поиск
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
@@ -32,17 +35,14 @@ function CatalogFilter() {
       {value: 'title.ru', title: 'По именованию'},
       {value: '-price', title: 'Сначала дорогие'},
       {value: 'edition', title: 'Древние'},
-    ]), [])
+    ]), []),
   };
 
   const {t} = useTranslate();
 
-  // useInit(() => {
-  //   console.log(select.categories)
-  // }, [select.categories])
-  console.log(select.categories)
   return (
     <SideLayout padding='medium'>
+      <Select options={select.categories} value={select.category} onChange={callbacks.onSortByCategiry}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={600}/>

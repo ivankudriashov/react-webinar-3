@@ -33,3 +33,41 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Формирование дерева из массива
+ * @param array {Array}
+ * @returns {Object}
+ */
+export function makeTree(array){
+  return array.filter(item => {
+    item.children = array.filter(i => {
+      if(i.parent){
+        return i.parent._id === item._id
+      }
+    });
+    return item.parent == null;
+  });
+}
+
+/**
+ * Формирование дерева из массива
+ * @param tree {Object}
+ * @returns {Array}
+ */
+export function arrayFromTree(tree){
+  let arr = [];
+
+  const rec = (node, prefix) => {
+    node.forEach(e => {
+      arr.push({value: e._id, title: prefix + e.title})
+      const nexPrefix = prefix + '- '
+      rec(e.children, nexPrefix);
+      if(e.children.length === 0) return;
+    })
+  }
+
+  rec(tree, '');
+
+  return arr;
+}

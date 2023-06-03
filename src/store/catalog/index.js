@@ -1,3 +1,4 @@
+import { arrayFromTree, makeTree } from "../../utils";
 import StoreModule from "../module";
 
 /**
@@ -17,10 +18,11 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
-        categories: null
+        category: ''
       },
       count: 0,
-      waiting: false
+      waiting: false,
+      categories: [],
     }
   }
 
@@ -37,6 +39,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
 
@@ -82,8 +85,13 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      'search[query]': params.query,
+      // 'search[category]': params.category,
     };
+
+    if(params.category) {
+      apiParams['search[category]'] = params.category
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
@@ -100,41 +108,15 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
     async getCategories() {
-      // const params = {...this.getState().params, ...newParams};
-
-      // // Установка новых параметров и признака загрузки
-      // this.setState({
-      //   ...this.getState(),
-      //   params,
-      //   waiting: true
-      // }, 'Установлены параметры каталога');
-
-      // // Сохранить параметры в адрес страницы
-      // let urlSearch = new URLSearchParams(params).toString();
-      // const url = window.location.pathname + '?' + urlSearch + window.location.hash;
-      // if (replaceHistory) {
-      //   window.history.replaceState({}, '', url);
-      // } else {
-      //   window.history.pushState({}, '', url);
-      // }
-
-      // const apiParams = {
-      //   limit: params.limit,
-      //   skip: (params.page - 1) * params.limit,
-      //   fields: 'items(*),count',
-      //   sort: params.sort,
-      //   'search[query]': params.query
-      // };
 
       const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
       const json = await response.json();
-// console.log(json)
+
+      const tree = makeTree(json.result.items);
+
       this.setState({
         ...this.getState(),
-        params: {
-          ...this.getState().params,
-          categories: json.result.items
-        }
+        categories: [{value: '', title: 'Все'}, ...arrayFromTree(tree)]
       }, 'Загружен список категорий из АПИ');
     }
 
