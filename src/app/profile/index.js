@@ -10,8 +10,6 @@ import { Navigate } from 'react-router-dom';
 import ProfileCard from '../../components/profile-card';
 
 function Profile() {
-
-
   const token = localStorage.getItem('token');
 
   const select = useSelector(state => ({
@@ -33,7 +31,7 @@ function Profile() {
           <LocaleSelect/>
         </Head>
         <Navigation />
-        <ProfileCard name={select.userName} phone={select.userPhone} email={select.userEmail} />
+        <ProfileCard profileTitle={t('profile.title')} profileName={t('profile.name')} profilePhone={t('profile.phone')} profileEmail={t('profile.email')} name={select.userName} phone={select.userPhone} email={select.userEmail} />
       </PageLayout>
   );
 }

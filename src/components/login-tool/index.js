@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import './style.css';
 import SideLayout from "../side-layout";
 
-function LoginTool({onOpen, onExit, isUser, userName}) {
+function LoginTool({onOpen, onExit, userName, exit, enter}) {
   const cn = bem('LoginTool');
 
   return (
@@ -14,11 +14,11 @@ function LoginTool({onOpen, onExit, isUser, userName}) {
       <>
         <Link className={cn('link')} to={'/profile'}>{userName}</Link>
         {/* TODO Сделать перевод */}
-        <button onClick={onExit}>Выход</button>
+        <button onClick={onExit}>{exit}</button>
       </>
 
       :
-        <Link className={cn('button')} to={'/login'} onClick={onOpen}>Вход</Link>
+        <Link className={cn('button')} to={'/login'} onClick={onOpen}>{enter}</Link>
       }
     </div>
   )
@@ -27,7 +27,6 @@ function LoginTool({onOpen, onExit, isUser, userName}) {
 LoginTool.propTypes = {
   onOpen: PropTypes.func,
   onExit: PropTypes.func,
-  isUser: PropTypes.bool,
   userName: PropTypes.string,
 }
 

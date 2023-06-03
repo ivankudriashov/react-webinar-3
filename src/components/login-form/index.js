@@ -5,7 +5,7 @@ import './style.css';
 import Form from "../form";
 import Input from "../input";
 
-function LoginForm({onAction, error, title}) {
+function LoginForm({onAction, error, title, t}) {
   const cn = bem('LoginForm');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -32,9 +32,9 @@ function LoginForm({onAction, error, title}) {
       <div className={cn('title')}>
         {title}
       </div>
-      <Form onSubmit={onSubmit}>
-        <Input theme={'login'} label={'Логин'} onChange={onLoginChange} value={login} placeholder={''}/>
-        <Input theme={'login'} label={'Пароль'} onChange={onPasswordChange} value={password} placeholder={''}/>
+      <Form buttonText={t('login.button')} onSubmit={onSubmit}>
+        <Input t={t} theme={'login'} label={'login'} onChange={onLoginChange} value={login} placeholder={''}/>
+        <Input t={t} theme={'login'} label={'password'} onChange={onPasswordChange} value={password} placeholder={''}/>
         {error && <div className={cn('error')}>{error}</div>}
       </Form>
     </div>
@@ -45,10 +45,12 @@ LoginForm.propTypes = {
   onAction: PropTypes.func,
   title: PropTypes.string,
   error: PropTypes.string,
+  t: PropTypes.func
 }
 
 LoginForm.defaultProps = {
   onAction: () => {},
+  t: (text) => text
 }
 
 export default memo(LoginForm);

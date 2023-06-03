@@ -34,7 +34,7 @@ function Login() {
         <LocaleSelect/>
       </Head>
       <Navigation />
-      <LoginForm error={select.error} title={'Вход'} onAction={callbacks.onLogin}/>
+      <LoginForm t={t} error={select.error} title={t('title.login')} onAction={callbacks.onLogin}/>
     </PageLayout>
   );
 }

@@ -2,9 +2,12 @@ import {memo, useCallback} from "react";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import LoginTool from "../../components/login-tool";
+import useTranslate from "../../hooks/use-translate";
 
 function LoginMenu() {
   const store = useStore();
+
+  const {t} = useTranslate();
 
   const select = useSelector(state => ({
     userName: state.login.user.name,
@@ -17,7 +20,7 @@ function LoginMenu() {
   }
 
   return (
-    <LoginTool onExit={callbacks.onLogout} userName={select.userName}/>
+    <LoginTool exit={t('exit')} enter={t('enter')} onExit={callbacks.onLogout} userName={select.userName}/>
   );
 }
 

@@ -28,7 +28,7 @@ function Input(props) {
   return (
     <div>
       {props.label && 
-        <div className={cn('label')}>{props.label}</div>
+        <div className={cn('label')}>{props.t(props.label)}</div>
       }
       <input
         className={cn({theme: props.theme})}
@@ -50,6 +50,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   theme: PropTypes.string,
   delay: PropTypes.number,
+  t: PropTypes.func
 }
 
 Input.defaultProps = {

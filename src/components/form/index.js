@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import {cn as bem} from "@bem-react/classname";
 import './style.css';
 
-function Form({children, onSubmit}) {
+function Form({children, onSubmit, buttonText}) {
   const cn = bem('Form');
 
   return (
     <form className={cn()}>
       {children}
-      <button onClick={onSubmit} type='submit'>Войти</button>
+      <button onClick={onSubmit} type='submit'>{buttonText}</button>
     </form>
   )
 }
@@ -17,6 +17,7 @@ function Form({children, onSubmit}) {
 Form.propTypes = {
   children: PropTypes.node,
   onSubmit: PropTypes.func,
+  buttonText: PropTypes.string
 }
 
 Form.defaultProps = {
