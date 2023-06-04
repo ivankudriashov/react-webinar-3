@@ -6,25 +6,33 @@ import Head from "../../components/head";
 import LocaleSelect from "../../containers/locale-select";
 import LoginMenu from '../../containers/login-menu';
 import useSelector from '../../hooks/use-selector';
-import { Navigate } from 'react-router-dom';
 import ProfileCard from '../../components/profile-card';
+import useStore from '../../hooks/use-store';
+import useInit from '../../hooks/use-init';
 
 function Profile() {
-  const token = localStorage.getItem('token');
+  const store = useStore();
+
+  useInit(() => {
+      store.actions.profile.getUserInfo();
+    }, [], true
+  );
 
   const select = useSelector(state => ({
-    userName: state.login.user.name,
-    userPhone: state.login.user.phone,
-    userEmail: state.login.user.email,
+    userName: state.profile.user.name,
+    userPhone: state.profile.user.phone,
+    userEmail: state.profile.user.email,
+    loading: state.profile.loading
   }));
 
   const {t} = useTranslate();
 
-  if(!token) {
-    return <Navigate to='/login' />;
-  }
-
   return (
+    select.loading ? 
+    <PageLayout>
+      <Head title={t('loading')}></Head>
+    </PageLayout>
+    :
       <PageLayout>
         <LoginMenu />
         <Head title={t('title')}>

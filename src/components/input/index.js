@@ -38,7 +38,6 @@ function Input(props) {
         onChange={onChange}
       />
     </div>
-
   )
 }
 

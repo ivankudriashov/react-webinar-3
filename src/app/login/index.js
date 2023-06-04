@@ -25,8 +25,6 @@ function Login() {
      }, []),
   }
 
-  console.log(select.error)
-
   return (
     <PageLayout>
       <LoginMenu />

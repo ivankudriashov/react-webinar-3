@@ -12,7 +12,8 @@
 }
 
 .Input_theme_big{
-  width: 300px;
+  width: 308px;
+  box-sizing: border-box;
 }
 
 .Input_theme_login{

@@ -24,5 +24,6 @@
   "profile.title": "Profile",
   "profile.name": "Name",
   "profile.phone": "Phone",
-  "profile.email": "Email"
+  "profile.email": "Email",
+  "loading": "Loading"
 }

@@ -13,7 +13,6 @@ function LoginTool({onOpen, onExit, userName, exit, enter}) {
       {userName.length ?
       <>
         <Link className={cn('link')} to={'/profile'}>{userName}</Link>
-        {/* TODO Сделать перевод */}
         <button onClick={onExit}>{exit}</button>
       </>
 

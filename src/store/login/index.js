@@ -1,5 +1,4 @@
 import StoreModule from "../module";
-import {redirect} from 'react-router-dom';
 /**
  * Состояние каталога - параметры фильтра исписок товара
  */
@@ -17,7 +16,8 @@ class LoginState extends StoreModule {
         email: ''
       },
       error: null,
-      isLogged: false,
+      loading: true,
+      isAuth: false
     }
   }
 
@@ -48,16 +48,16 @@ class LoginState extends StoreModule {
             email: json.result.user.email
           },
           error: null,
-          isLogged: true,
+          loading: false,
+          isAuth: true
         }, 'Пользователь авторизовался');
-
-        // redirect("/");
-
       } else {
         // Ошибка авторизации
         this.setState({
           ...this.getState(),
           error: json.error.data.issues[0].message,
+          loading: false,
+          isAuth: false
         }, 'Произошла ошибка');
       }
     } catch (e) {
@@ -91,13 +91,16 @@ class LoginState extends StoreModule {
             email: ''
           },
           error: null,
-          isLogged: false,
+          loading: false,
+          isAuth: false
         }, 'Пользователь успешно вышел из профиля');
       } else {
         // Ошибка выхода из профиля
         this.setState({
           ...this.getState(),
           error: json.error.data.issues[0].message,
+          loading: false,
+          isAuth: false
         }, 'Ошибка выхода из профиля');
       }
     } catch (e) {
@@ -110,7 +113,18 @@ class LoginState extends StoreModule {
    * @param token {String} Логин и пароль
    * @returns {Promise<void>}
    */
-  async getUserInfo(token) {
+  async getUser() {
+    const token = localStorage.getItem('token');
+
+    if(!token) {
+      this.setState({
+        ...this.getState(),
+        loading: false
+      })
+
+      return
+    }
+
     try {
       const response = await fetch(`/api/v1/users/self`, {
         method: 'GET',
@@ -121,7 +135,7 @@ class LoginState extends StoreModule {
       });
 
       const json = await response.json();
-      // console.log(json)
+
       if (response.ok) {
         // Добавление данных о пользователе в store
         this.setState({
@@ -131,19 +145,23 @@ class LoginState extends StoreModule {
             email: json.result.email
           },
           error: null,
-          isLogged: true
+          loading: false,
+          isAuth: true
         }, 'Пользователь авторизовался');
 
-      } else {
+      } 
+      else {
         // Ошибка авторизации
         this.setState({
           ...this.getState(),
-          error: json.error.data.issues[0].message
+          loading: false,
+          isAuth: false
         }, 'Произошла ошибка авторизации');
       }
     } catch (e) {
       console.log(e);
     }
+
   }
 }
 
