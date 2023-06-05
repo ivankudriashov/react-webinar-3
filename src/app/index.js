@@ -19,7 +19,6 @@ function App() {
   const activeModal = useSelector(state => state.modals.name);
 
   const select = useSelector(state => ({
-    loading: state.login.loading,
     isAuth: state.login.isAuth,
   }));
 
@@ -29,12 +28,11 @@ function App() {
   );
   
   return (
-    select.loading ? null
-      :
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
+        {/* Так же можно перенести isAuth и url в сам ProtectedRoute, но тогда контейнер перестанет быть универсальным */}
         <Route path={'/login'} 
           element={
             <ProtectedRoute isAuth={select.isAuth} url={'/'}>
