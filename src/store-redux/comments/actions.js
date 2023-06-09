@@ -16,7 +16,10 @@ export default {
           url: `/api/v1/comments?search[parent]=${id}&limit=*&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type)),count`
         });
 
-        dispatch({type: 'comments/load-success', payload: {data: treeToList(listToTree(res.data.result.items))}});
+        dispatch({type: 'comments/load-success', payload: {data: treeToList(listToTree(res.data.result.items), (item, level) => (
+          {...item, level: level * 30} 
+        )
+        )}});
 
       } catch (e) {
         dispatch({type: 'comments/load-error'});
@@ -43,6 +46,18 @@ export default {
       } catch (e) {
         dispatch({type: 'comment/load-error'});
       }
+    }
+  },
+
+  checkedCommentId: (id) => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'comment/checked', payload: id});
+    }
+  },
+
+  closeCommentTextaria: () => {
+    return async (dispatch, getState, services) => {
+      dispatch({type: 'comment/checked', payload: ''});
     }
   },
 }

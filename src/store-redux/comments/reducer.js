@@ -3,7 +3,8 @@ const initialState = {
   data: [],
   commentsCount: 0,
   waiting: false, // признак ожидания загрузки комментариев
-  commentPostWaiting: false // признак ожидания загрузки комментария на сервер
+  commentPostWaiting: false, // признак ожидания загрузки комментария на сервер
+  checkedComentId: ''
 }
 
 // Обработчик действий
@@ -25,7 +26,10 @@ function reducer(state = initialState, action) {
       return { ...state,  commentPostWaiting: false};  
 
     case "comment/load-error":
-      return { ...state,  commentPostWaiting: false};  
+      return { ...state,  commentPostWaiting: false};
+
+    case "comment/checked":
+      return { ...state,  checkedComentId: action.payload};
 
     default:
       // Нет изменений

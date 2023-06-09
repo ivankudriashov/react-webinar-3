@@ -1,0 +1,42 @@
+.Comments {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.Comments-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Comments-item-info {
+  display: flex;
+  gap: 10px;
+}
+.Comments-item-author {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  color: #000000;
+}
+.Comments-item-date {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #666666;
+}
+.Comments-item-text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+}
+
+.Comments-item-action {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #0087E9;
+  cursor: pointer;
+}
