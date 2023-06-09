@@ -2,6 +2,7 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
+import dataChange from "../../utils/date-change";
 
 function Comment({list, render, checkedComentId, onItemId}){
   const cn = bem('Comments');
@@ -13,7 +14,7 @@ function Comment({list, render, checkedComentId, onItemId}){
           <div style={{marginLeft: `${comment.level}px`}} className={cn('item')} key={comment._id}>
             <div className={cn('item-info')} >
               <div className={cn('item-author')} >{comment.author.profile.name}</div>
-              <div className={cn('item-date')} >{comment.dateCreate}</div>
+              <div className={cn('item-date')} >{dataChange(comment.dateCreate)}</div>
             </div>
             <div className={cn('item-text')}>{comment.text}</div>
             <div className={cn('item-action')} onClick={() => {
