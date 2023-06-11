@@ -10,9 +10,12 @@ import Comment from '../../components/comment';
 import CommentsLayout from '../../components/comments-layout';
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
+import useTranslate from '../../hooks/use-translate';
 
 function Comments() {
   const params = useParams();
+  
+  const {t} = useTranslate();
 
   const dispatch = useDispatch();
 
@@ -52,14 +55,15 @@ function Comments() {
         onSubmit={callbacks.onSubmit}
         onExit={callbacks.onExit}
         id={itemId}
+        t={t}
       />
-    ), [select.exists])
+    ), [select.exists, t])
   }
 
   return (
     <CommentsLayout>
       <>
-        <CommentsTitle text={`Комментариев (${selectRedux.commentsCount})`} />
+        <CommentsTitle text={`${t('comments.total')} (${selectRedux.commentsCount})`} />
         {selectRedux.comments.length ?
           <Comment
             userInfo={select.profile}
@@ -79,10 +83,11 @@ function Comments() {
             checkedComentId={selectRedux.checkedComentId}
             commentPostWaiting={selectRedux.commentPostWaiting}
             checkedArticleId={params.id}
+            t={t}
           />
         :
         !select.waiting ?
-          renders.comment(params.id, "article", "Новый комментарий")
+          renders.comment(params.id, "article", t('comments.replyArtirle'))
         :
           null
         }

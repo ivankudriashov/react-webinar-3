@@ -4,8 +4,8 @@
  * @returns {string}
  */
 
-export default function dataChange(data) {
+export default function dataChange(data, format) {
     const newDate = new Date(Date.parse(data));
     const  options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return newDate.toLocaleDateString('ru-RU', options)
+    return newDate.toLocaleDateString(format, options)
 }

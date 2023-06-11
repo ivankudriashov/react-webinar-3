@@ -12,7 +12,8 @@ function Comment(
       checkedArticleId, 
       onItemId, 
       userInfo, 
-      commentPostWaiting
+      commentPostWaiting,
+      t
     }
   ){
   const cn = bem('Comments');
@@ -27,9 +28,9 @@ function Comment(
             style={comment.level <= 300 ? {marginLeft: `${comment.level}px`} :  {marginLeft: `300px`}} className={cn('item')} key={comment._id}
           >
             {checkedComentId === '' ?
-              render(checkedArticleId, "article", "Новый комментарий")
+              render(checkedArticleId, "article", t('comments.replyArtirle'))
               :
-              render(checkedComentId, "comment", "Новый ответ")
+              render(checkedComentId, "comment",  t('comments.replyTitle'))
             }
           </div> 
           :
@@ -43,13 +44,13 @@ function Comment(
               >
                 {comment.author.profile.name}
               </div>
-              <div className={cn('item-date')} >{dataChange(comment.dateCreate)}</div>
+              <div className={cn('item-date')} >{dataChange(comment.dateCreate, t('comments.date'))}</div>
             </div>
             <div className={cn('item-text')}>{comment.text}</div>
             <div className={cn('item-action')} onClick={() => {
               onItemId(comment._id);
             }}>
-              Ответить
+              {t('comments.reply')}
             </div>
           </div>
         )
@@ -66,11 +67,13 @@ Comment.propTypes = {
   checkedArticleId: PropTypes.string,
   userInfo: PropTypes.object,
   commentPostWaiting: PropTypes.bool,
+  t: PropTypes.func,
 };
 
 Comment.defaultProps = {
   render: () => {},
   onItemId: () => {},
+  t: (text) => text
 }
 
 export default memo(Comment);

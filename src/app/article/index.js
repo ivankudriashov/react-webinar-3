@@ -38,12 +38,6 @@ function Article() {
     commentPostWaiting: state.comments.commentPostWaiting,
     commentsWaiting: state.comments.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-  
-  // useEffect(() => {
-  //   if(!select.commentPostWaiting) {
-  //     dispatch(commentsActions.load(params.id));
-  //   }
-  // }, [select.commentPostWaiting, params.id])
 
   const {t} = useTranslate();
   
