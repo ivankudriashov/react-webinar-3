@@ -1,31 +1,39 @@
-import {memo, useState} from "react";
+import {memo, useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 import { Link } from "react-router-dom";
 import {cn as bem} from '@bem-react/classname';
 
-function CommentActions({show, type, title, onSubmit, onExit, id}){
-  const cn = bem('Field');
 
+
+function CommentActions({show, type, title, onSubmit, onExit, id}){
+  const cn = bem('Field-tetxaria');
   const [commentText, setCommentText] = useState('');
 
   const onChange = (e) => {
     setCommentText(e.currentTarget.value);
   }
 
+  useEffect(() => {
+    setCommentText('');
+  }, [id])
+
   return (
     <div className={cn()}>
     { show
       ?
       <form className={cn('form')} onSubmit={(e) => {
-        onSubmit(e, id, type, commentText);
+        e.preventDefault();
+        onSubmit(id, type, commentText);
       }}>
         <div className={cn('form-title')}>{title}</div>
-        <textarea className={cn('form-textarea')} onChange={onChange} name="comment" rows="10"></textarea>
+        <textarea value={commentText} className={cn('form-textarea')} onChange={onChange} name="comment" rows="10"></textarea>
         <div className={cn('form-actions')}>
           <button type='submit'>Отправить</button>
           {type === 'comment' ?
-            <button type="button" className={cn('form-exit')} onClick={onExit}>
+            <button type="button" className={cn('form-exit')} onClick={() => {
+              onExit();
+            }}>
               Отмена
             </button>
             :
@@ -56,5 +64,11 @@ CommentActions.propTypes = {
   title: PropTypes.string,
   id: PropTypes.string,
 };
+
+CommentActions.defaultProps = {
+  onSubmit: () => {},
+  onExit: () => {},
+}
+
 
 export default memo(CommentActions);

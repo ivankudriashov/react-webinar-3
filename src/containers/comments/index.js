@@ -8,6 +8,8 @@ import CommentActions from '../../components/comment-textaria';
 import CommentsTitle from '../../components/comments-title';
 import Comment from '../../components/comment';
 import CommentsLayout from '../../components/comments-layout';
+import listToTree from "../../utils/list-to-tree";
+import treeToList from "../../utils/tree-to-list";
 
 function Comments() {
   const params = useParams();
@@ -18,15 +20,18 @@ function Comments() {
     comments: state.comments.data,
     commentsCount: state.comments.commentsCount,
     checkedComentId: state.comments.checkedComentId,
+    commentPostWaiting: state.comments.commentPostWaiting,
+    waiting: state.comments.waiting
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const select = useSelector(state => ({
-    exists: state.session.exists
+    exists: state.session.exists,
+    profile: state.session.user,
+    waiting: state.session.waiting
   }));
 
   const callbacks = {
-    onSubmit: useCallback((e, id, type, text) => {
-      e.preventDefault();
+    onSubmit: useCallback((id, type, text) => {
       dispatch(commentsActions.add(id, type, text));
       dispatch(commentsActions.closeCommentTextaria());
     }, []),
@@ -39,16 +44,16 @@ function Comments() {
   }
 
   const renders = {
-    comment: useCallback((itemId) => (
+    comment: useCallback((itemId, type, title) => (
       <CommentActions
         show={select.exists}
-        type="comment"
-        title="Новый ответ"
+        type={type}
+        title={title}
         onSubmit={callbacks.onSubmit}
         onExit={callbacks.onExit}
         id={itemId}
       />
-    ), [])
+    ), [select.exists])
   }
 
   return (
@@ -56,26 +61,29 @@ function Comments() {
       <>
         <CommentsTitle text={`Комментариев (${selectRedux.commentsCount})`} />
         {selectRedux.comments.length ?
-          <Comment 
-            list={selectRedux.comments}
+          <Comment
+            userInfo={select.profile}
+            list={treeToList(listToTree([
+              ...selectRedux.comments, 
+              {
+                _type: 'component',
+                _id: null,
+                parent: { _id: selectRedux.checkedComentId}
+              }
+            ], '_id', 'article'), (item, level) => (
+              {...item, level: level * 30} 
+            )
+            )}
             onItemId={callbacks.onItemId}
             render={renders.comment}
             checkedComentId={selectRedux.checkedComentId}
+            commentPostWaiting={selectRedux.commentPostWaiting}
+            checkedArticleId={params.id}
           />
-          : 
-          null
-        }
-
-        { selectRedux.checkedComentId ===  '' ?
-          <CommentActions 
-            show={select.exists}
-            type="article"
-            title="Новый комментарий"
-            onSubmit={callbacks.onSubmit}
-            onExit={callbacks.onExit}
-            id={params.id}
-          />
-          :
+        :
+        !select.waiting ?
+          renders.comment(params.id, "article", "Новый комментарий")
+        :
           null
         }
       </>

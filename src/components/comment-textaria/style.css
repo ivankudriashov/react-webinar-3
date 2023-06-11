@@ -1,21 +1,21 @@
-.Field {
-  margin-top: 30px;
+.Field-tetxaria {
+  /* margin-top: 30px; */
 }
 
-.Field-form {
+.Field-tetxaria-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.Field-form-title {
+.Field-tetxaria-form-title {
   font-weight: 700;
   font-size: 12px;
   line-height: 14px;
   color: #000000;
 }
 
-.Field-form-textarea {
+.Field-tetxaria-form-textarea {
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
@@ -24,16 +24,16 @@
   color: #000000;
   resize: none;
 }
-.Field-form-actions {
+.Field-tetxaria-form-actions {
   display: flex;
   gap: 10px;
 }
 
-.Field-panel {
+.Field-tetxaria-panel {
   display: flex;
 }
 
-.Field-panel-link {
+.Field-tetxaria-panel-link {
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
@@ -41,11 +41,11 @@
   cursor: pointer;
 }
 
-.Field-panel-link_color_grey {
+.Field-tetxaria-panel-link_color_grey {
   color: rgba(102, 102, 102, 1);
 }
 
-.Field-panel-text {
+.Field-tetxaria-panel-text {
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;

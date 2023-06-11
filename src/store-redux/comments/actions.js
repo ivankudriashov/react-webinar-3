@@ -16,10 +16,7 @@ export default {
           url: `/api/v1/comments?search[parent]=${id}&limit=*&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type)),count`
         });
 
-        dispatch({type: 'comments/load-success', payload: {data: treeToList(listToTree(res.data.result.items), (item, level) => (
-          {...item, level: level * 30} 
-        )
-        )}});
+        dispatch({type: 'comments/load-success', payload: {data: res.data.result.items}});
 
       } catch (e) {
         dispatch({type: 'comments/load-error'});
@@ -31,15 +28,22 @@ export default {
     return async (dispatch, getState, services) => {
       dispatch({type: 'comment/load-start'});
 
+      if(!text || !text.trim()) {
+        dispatch({type: 'comment/load-error'});
+        return
+      }
+
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments`,
+          url: `/api/v1/comments?lang=all&fields=author(profile(name)),dateCreate,text,parent(_id,_type)`,
           body: JSON.stringify({
             parent: { _id: id, _type: type },
             text,
           }),
           method: "POST",
         });
+
+        dispatch({type: 'comment/load-to-state', payload: {data: res.data.result}});
 
         dispatch({type: 'comment/load-success'});
 

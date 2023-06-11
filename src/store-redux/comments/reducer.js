@@ -22,8 +22,11 @@ function reducer(state = initialState, action) {
     case "comment/load-start":
       return { ...state,  commentPostWaiting: true};
 
+    case "comment/load-to-state":
+      return { ...state,  data: [...state.data, action.payload.data], commentsCount: state.commentsCount + 1};
+
     case "comment/load-success":
-      return { ...state,  commentPostWaiting: false};  
+      return { ...state,  commentPostWaiting: false };
 
     case "comment/load-error":
       return { ...state,  commentPostWaiting: false};
