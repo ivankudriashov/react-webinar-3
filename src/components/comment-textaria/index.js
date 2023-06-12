@@ -43,7 +43,7 @@ function CommentActions({show, type, title, onSubmit, onExit, id, t}){
       </form>
         :
       <div className={cn('panel')}>
-        <Link className={cn('panel-link')} to='/login'>{t('comments.signIn')}</Link>
+        <Link className={cn('panel-link')} to='/login' state={{back: location.pathname}}>{t('comments.signIn')}</Link>
         <div className={cn('panel-text')}>
           &nbsp;{t('comments.message')}&nbsp;
         </div>
