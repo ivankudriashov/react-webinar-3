@@ -10,7 +10,7 @@ import Comment from '../../components/comment';
 import CommentsLayout from '../../components/comments-layout';
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
-import useTranslate from '../../hooks/use-translate';
+import useTranslate from "../../hooks/use-translate";
 
 function Comments() {
   const params = useParams();

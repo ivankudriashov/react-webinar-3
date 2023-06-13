@@ -8,6 +8,7 @@ import useStore from "../../hooks/use-store";
 function TopHead() {
 
   const {t} = useTranslate();
+  
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();

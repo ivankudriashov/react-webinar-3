@@ -1,7 +1,6 @@
-import {memo, useCallback, useEffect, useMemo} from 'react';
+import {memo, useCallback} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
@@ -22,6 +21,8 @@ function Article() {
 
   const dispatch = useDispatch();
 
+  const {lang} = useTranslate();
+
   // Параметры из пути /articles/:id
   const params = useParams();
 
@@ -29,7 +30,7 @@ function Article() {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
     dispatch(commentsActions.load(params.id));
-  }, [params.id]);
+  }, [params.id, lang]);
 
   const select = useSelectorRedux(state => ({
     article: state.article.data,

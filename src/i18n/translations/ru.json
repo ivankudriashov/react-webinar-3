@@ -16,6 +16,10 @@
     "other": "товара"
   },
   "article.add": "Добавить",
+  "article.producer": "Страна производитель: ",
+  "article.category": "Категория: ",
+  "article.year": "Год выпуска: ",
+  "article.price": "Цена: ",
   "filter.reset": "Сбросить",
   "auth.title": "Вход",
   "auth.login": "Логин",
@@ -31,5 +35,11 @@
   "comments.cancel": "Отмена",
   "comments.message": "чтобы иметь возможность ответить.",
   "comments.signIn": "Войдите,",
-  "comments.date": "ru-RU"
+  "comments.date": "ru-RU",
+  "filter.order": "По порядку",
+  "filter.title": "По именованию",
+  "filter.price.desc": "Сначала дорогие",
+  "filter.edition": "Древние",
+  "filter.all": "Все",
+  "filter.placeholder": "Поиск"
 }
